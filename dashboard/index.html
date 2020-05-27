@@ -1,0 +1,227 @@
+<html lang-"en">
+  <head>
+  	<meta charset="utf-8">
+  	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+
+      // Load the Visualization API and the corechart package.
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.load('current', {'packages':['gauge']});
+      google.charts.load('current', {'packages':['table']});
+
+      // Set a callback to run when the Google Visualization API is loaded.
+      google.charts.setOnLoadCallback(Network_Capacity_Ash);
+      google.charts.setOnLoadCallback(Network_Capacity_Man);
+      google.charts.setOnLoadCallback(VPN_Users_ADC);
+      google.charts.setOnLoadCallback(Citrix_Users_ADC);
+      google.charts.setOnLoadCallback(AWS_WS_Users_NA);
+      google.charts.setOnLoadCallback(AWS_WS_Users_LA);
+      google.charts.setOnLoadCallback(drawChart5);
+      // Callback that creates and populates a data table,
+      // instantiates the pie chart, passes in the data and
+      // draws it.
+
+function Network_Capacity_Ash() {
+  var URL = 'https://docs.google.com/spreadsheets/d/12fS7HNv3qpAvCFNUcRWkGJKFC7rx7hy9ZuYpBH7I5rI/gviz/tq?gid=0';
+  var query = new google.visualization.Query(URL);
+  var queryString = 'select A, B, C';
+  query.setQuery(queryString);
+  query.send(handleQueryResponseNetwork_Capacity_Ash);
+
+
+}
+
+function Network_Capacity_Man() {
+  var URL = 'https://docs.google.com/spreadsheets/d/12fS7HNv3qpAvCFNUcRWkGJKFC7rx7hy9ZuYpBH7I5rI/gviz/tq?gid=1324984830';
+  var query = new google.visualization.Query(URL);
+  var queryString = 'select A, B, C';
+  query.setQuery(queryString);
+  query.send(handleQueryResponseNetwork_Capacity_Man);
+
+
+}
+
+function VPN_Users_ADC() {
+  var URL = 'https://docs.google.com/spreadsheets/d/12fS7HNv3qpAvCFNUcRWkGJKFC7rx7hy9ZuYpBH7I5rI/gviz/tq?gid=898239406';
+  var query = new google.visualization.Query(URL);
+  var queryString = 'select A, B, C';
+  query.setQuery(queryString);
+  query.send(handleQueryResponseVPN_Users_ADC);
+
+
+}
+
+function Citrix_Users_ADC() {
+  var URL = 'https://docs.google.com/spreadsheets/d/12fS7HNv3qpAvCFNUcRWkGJKFC7rx7hy9ZuYpBH7I5rI/gviz/tq?gid=2039508457';
+  var query = new google.visualization.Query(URL);
+  var queryString = 'select A, B, C, D, E';
+  query.setQuery(queryString);
+  query.send(handleQueryResponseCitrix_Users_ADC);
+
+
+}
+
+function AWS_WS_Users_NA() {
+  var URL = 'https://docs.google.com/spreadsheets/d/12fS7HNv3qpAvCFNUcRWkGJKFC7rx7hy9ZuYpBH7I5rI/gviz/tq?gid=467830723';
+  var query = new google.visualization.Query(URL);
+  var queryString = 'select A, B';
+  query.setQuery(queryString);
+  query.send(handleQueryResponseAWS_WS_Users_NA);
+
+
+}
+
+function AWS_WS_Users_LA() {
+  var URL = 'https://docs.google.com/spreadsheets/d/12fS7HNv3qpAvCFNUcRWkGJKFC7rx7hy9ZuYpBH7I5rI/gviz/tq?gid=408357154';
+  var query = new google.visualization.Query(URL);
+  var queryString = 'select A, B';
+  query.setQuery(queryString);
+  query.send(handleQueryResponseAWS_WS_Users_LA);
+
+
+}
+
+function drawChart5() {
+
+        var data = google.visualization.arrayToDataTable([
+          ['Label', 'Value'],
+          ['Network', 30],
+          ['VPN', 40],
+          ['Citrix', 50],
+          ['AWSWorkspaces', 1]
+        ]);
+
+        var options = {
+          width: 600, height: 300,
+          redFrom: 90, redTo: 100,
+          yellowFrom:70, yellowTo: 90,
+          greenFrom:0, greenTo: 70,
+          minorTicks: 10
+        };
+
+        var chart = new google.visualization.Gauge(document.getElementById('chart_g'));
+
+        chart.draw(data, options);
+
+
+}
+
+function handleQueryResponseNetwork_Capacity_Ash(response) {
+  var data = response.getDataTable();
+
+  var options = {'title':'Ashburn Network Capacity % Utilization',
+                       'width':600,
+                       'height':300};
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_divNetwork_Capacity_Ash'));
+  chart.draw(data, options);
+
+
+}
+
+function handleQueryResponseNetwork_Capacity_Man(response) {
+  var data = response.getDataTable();
+
+ var options = {
+           title: 'Manassas Network Capacity % Utilization',
+           width: 600,
+           height: 300,
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_divNetwork_Capacity_Man'));
+  chart.draw(data, options);
+
+}
+
+function handleQueryResponseVPN_Users_ADC(response) {
+  var data = response.getDataTable();
+
+  var options = {'title':'ADC VPN Max Users',
+                       'width':600,
+                       'height':300};
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_divVPN_Users_ADC'));
+  chart.draw(data, options);
+
+
+}
+
+function handleQueryResponseCitrix_Users_ADC(response) {
+  var data = response.getDataTable();
+
+
+ var options = {
+           title: 'ADC Citrix Max Users',
+           width: 600,
+           height: 300,
+  };
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_divCitrix_Users_ADC'));
+  chart.draw(data, options);
+
+}
+
+function handleQueryResponseAWS_WS_Users_NA(response) {
+  var data = response.getDataTable();
+
+  var options = {'title':'North America AWS Workspaces Max Users',
+                       'width':600,
+                       'height':300};
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_divAWS_WS_Users_NA'));
+  chart.draw(data, options);
+
+
+}
+
+
+function handleQueryResponseAWS_WS_Users_LA(response) {
+  var data = response.getDataTable();
+
+  var options = {'title':'Latin America AWS Workspaces Max Users',
+                       'width':600,
+                       'height':300};
+
+  var chart = new google.visualization.LineChart(document.getElementById('chart_divAWS_WS_Users_LA'));
+  chart.draw(data, options);
+
+
+}
+
+	</script>
+	 <img src="covid19-dashboard.jpg" alt="Banner">
+	<title>COVID-19 ADC IT Dashboard</title>
+  </head>
+
+  <body>
+  	<h1 style="text-align:left;background-color:darkgreen;color:white;font-family:verdana;font-size:18px;">Network Performance</h1>
+   		<!--Table and divs that hold the pie charts-->
+    <table class="columns">
+      <tr>
+        <td><div id="chart_divNetwork_Capacity_Ash" style="border: 1px solid #ccc"></div></td>
+        <td><div id="chart_divNetwork_Capacity_Man" style="border: 1px solid #ccc"></div></td>
+      </tr>
+    </table>
+    <br></br>
+  	<h1 style="text-align:left;background-color:darkgreen;color:white;font-family:verdana;font-size:18px;">VPN and Citrix Usage</h1>
+   		<!--Table and divs that hold the pie charts-->
+    <table class="columns">
+      <tr>
+        <td><div id="chart_divVPN_Users_ADC" style="border: 1px solid #ccc"></div></td>
+        <td><div id="chart_divCitrix_Users_ADC" style="border: 1px solid #ccc"></div></td>
+      </tr>
+    </table>
+    <br></br>
+   	<h1 style="text-align:left;background-color:darkgreen;color:white;font-family:verdana;font-size:18px;">AWS Workspaces Usage</h1>
+  	<table class="columns">
+      <tr>
+        <td><div id="chart_divAWS_WS_Users_NA" style="border: 1px solid #ccc"></div></td>
+        <td><div id="chart_divAWS_WS_Users_LA" style="border: 1px solid #ccc"></div></td>
+      </tr>
+    </table>
+    <br></br>
+  </body>
+</html>
