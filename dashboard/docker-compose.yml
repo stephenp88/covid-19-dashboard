@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  proxy:
+    image: proxy
+    ports:
+      - '80:80'
+
+  dashapp:
+    image: dashapp:2.1
